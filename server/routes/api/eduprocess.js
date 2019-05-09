@@ -32,7 +32,7 @@ router.delete('/api/eduprocess/:id', async (req, res) => {
 
 async function loadEduprocessCollection(coll){
     let user = coll.split('.').join('').split(' ').join('')
-    const client = await mongodb.MongoClient.connect('mongodb://localhost:27017', {
+    const client = await mongodb.MongoClient.connect("mongodb+srv://asus48hdc:master1997@masterdegree-7nlxw.mongodb.net/test?retryWrites=true", {
         useNewUrlParser: true
     });
 

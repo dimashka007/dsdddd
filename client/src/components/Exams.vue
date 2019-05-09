@@ -1,0 +1,80 @@
+<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-4">Білети на бакалаврський іспит</div>
+      <div class="col-4">Білети на магістрський іспит</div>
+      <div class="col-4">Білети на державний іспит</div>
+    </div>
+    <div class="row">
+      <ul class="col-4 list-group">
+        <div :id="splitName('ms/' + ticket)" class="list-group-item" v-for="(ticket, index) in ms.data" :item="ticket" :key="index">
+          <a :href="'docs/exams/ms/'+ticket">{{ticket}}</a> <img v-if="$root.user=='admin'" @click="deleteFile('ms/' + ticket, 'ms/')" src="img/delete.svg" width="15px"  alt="">
+        </div>
+      </ul>
+      <ul class="col-4 list-group">
+        <div :id="splitName('mag/' + ticket)"
+          class="list-group-item"
+          v-for="(ticket, index) in mag.data"
+          :item="ticket"
+          :key="index"
+        >
+          <a :href="'docs/exams/mag/'+ticket">{{ticket}}</a><img v-if="$root.user=='admin'" @click="deleteFile('mag/' + ticket, 'mag/')" src="img/delete.svg" width="15px"  alt="">
+        </div>
+      </ul>
+      <ul class="col-4 list-group">
+        <div
+          :id="splitName('dac/' + ticket)"
+          class="list-group-item"
+          v-for="(ticket, index) in dac.data"
+          :item="ticket"
+          :key="index"
+        >
+          <a :href="'docs/exams/dac/'+ticket">{{ticket}}</a><img v-if="$root.user=='admin'" @click="deleteFile('dac/' + ticket, 'dac/')" src="img/delete.svg" width="15px"  alt="">
+        </div>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+import exams from "../examService";
+export default {
+  name: "exams",
+  data() {
+    return {
+      ms: [],
+      mag: [],
+      dac: []
+    };
+  },
+  async created() {
+    try {
+      this.ms = await exams.getExams("ms");
+      this.dac = await exams.getExams("dac");
+      this.mag = await exams.getExams("mag");
+    } catch (err) {
+      this.error = err.message;
+    }
+  },
+  methods: {
+     deleteFile: async function(name, folder){
+      switch (folder) {
+        case 'ms/' :
+          this.ms = (await exams.DeleteFile(name, folder));
+          break;
+        case 'mag/' :
+          this.mag = (await exams.DeleteFile(name, folder));
+          break;
+        case 'dac/' :
+          this.dac = (await exams.DeleteFile(name, folder));
+          break;
+      }
+      var splitted = this.splitName(name);
+      document.querySelector(`#${splitted}`).style.display="none";
+    },
+    splitName(name) {
+      return (name.split('.')[0]).split('/').join('')
+    }
+  }
+};
+</script>

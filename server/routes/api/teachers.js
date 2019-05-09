@@ -38,11 +38,11 @@ router.delete('/api/teachers/:id', async (req, res) => {
 
 
 async function loadTeachersCollection(){
-    const client = await mongodb.MongoClient.connect('mongodb://localhost:27017', {
-        useNewUrlParser: true
+    const client = await mongodb.MongoClient.connect("mongodb+srv://asus48hdc:master1997@masterdegree-7nlxw.mongodb.net/test?retryWrites=true", {
+        useNewUrlParser: true,
     });
 
-    return client.db('department').collection('teachers');
+    return client.db('masterDegree').collection('teachers');
 }
  
 module.exports = router;
