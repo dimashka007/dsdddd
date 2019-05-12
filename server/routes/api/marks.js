@@ -19,6 +19,37 @@ router.post('/api/marks', async (req, res) => {
     res.status(201).send();
 });
 
+router.post('/api/marks/date', async (req, res) => {
+    const edu = await loadMarksCollection(req.body.name + req.body.way);
+    await edu.insertOne({
+        type: req.body.type,
+        task: req.body.task,
+        theme: req.body.theme,
+        date: req.body.date
+    });
+    res.status(201).send();
+});
+router.put('/api/marks', async (req, res) => {
+    const edu = await loadMarksCollection(req.body.name + req.body.way);
+    console.log(req.body.id, req.body.marks);
+    await edu.updateOne(
+        { _id: new mongodb.ObjectID(req.body.id)}, // Filter
+        {$set: {"marks": req.body.marks}}, // Update
+        {upsert: false} // add document with req.body._id if not exists 
+
+   );
+    res.status(201).send(edu);
+});
+
+router.post('/api/marks/student', async (req, res) => {
+    const edu = await loadMarksCollection(req.body.name + req.body.way);
+    await edu.insertOne({
+        type: req.body.type,
+        student: req.body.student,
+        marks: req.body.marks
+    });
+    res.status(201).send();
+});
 
 router.delete('/api/eduprocess/:id', async (req, res) => {
     const meth = await loadEduprocessCollection(req.body.user);

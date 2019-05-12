@@ -42,7 +42,7 @@ async function loadTeachersCollection(){
         useNewUrlParser: true,
     });
 
-    return client.db('masterDegree').collection('teachers');
+    return client.db('department').collection('teachers');
 }
  
 module.exports = router;

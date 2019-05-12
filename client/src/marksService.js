@@ -12,7 +12,6 @@ class MarksService {
                         type: 'Disc'
                     }
                 });
-                const data = res.data;
                 resolve(
                     res.data
                 );
@@ -21,10 +20,14 @@ class MarksService {
             }
         });
     }
-
+    static insertTask(type, date, theme, task, name, way){
+        return axios.post(url+'date', {type, date, theme, task, name, way})
+    }
+    static insertStudent(type, student, marks, name, way){
+        return axios.post(url+'student', {type, student, marks, name, way})
+    }
     //Create Post
     static insertDisc(collection, name) {
-        console.log(name)
         return axios.post(url, {collection, name});
     }
     // static deleteTeach(id, dir){

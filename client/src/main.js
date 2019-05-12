@@ -4,11 +4,13 @@ import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Multiselect from 'vue-multiselect'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
+
 
 import CourseWorks from './components/CourseWorks.vue'
 import Exams from './components/Exams.vue'
@@ -37,7 +39,7 @@ const router = new VueRouter({
 })
 
 new Vue({
-  router,
+  router, Multiselect,
   render: h => h(App),
   data: {
     user: '',
