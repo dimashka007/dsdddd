@@ -32,7 +32,7 @@
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
-          <template v-if="$root.user == ''">
+          <template v-if="$root.user == ''||$root.user == undefined">
             <b-form-input size="sm" class="mr-sm-2" v-model="login" placeholder="Логiн"></b-form-input>
             <b-form-input size="sm" class="mr-sm-2" v-model="password" placeholder="Пароль"></b-form-input>
             <button class="my-2 my-sm-0" @click.prevent="auth">Увiйти</button>
