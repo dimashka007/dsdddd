@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyPaprses = require("body-parser");
 var cors = require("cors");
+const multer = require('multer')
 
 const app = express();
 
@@ -29,6 +30,13 @@ app.use(teachload);
 app.use(eduprocess);
 app.use(marks);
 
+const upload = multer({
+    dest: './uploads'
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.json({ file: req.file})
+}) ;
 
 const port = process.env.PORT || 5000;
 

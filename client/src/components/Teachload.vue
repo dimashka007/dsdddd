@@ -1,15 +1,19 @@
 <template>
   <div>
-    
+    <file-upload/>
     <div v-html="table.data"></div>
   </div>
 </template>
 
 <script>
+import FileUpload from './upload.vue'
 import teachload from "../teachloadService";
 import $ from "jquery"; // ... jquery
 export default {
   name: "Teachload",
+  components: {
+    FileUpload
+  },
   data() {
     return {
       table: ""
