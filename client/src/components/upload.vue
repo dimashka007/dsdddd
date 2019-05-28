@@ -1,6 +1,6 @@
 <template>
 <div class="file">
-    <form @submit.prevent="sendFile" enctype="multipart/form-data">
+    <form @submit.prevent="sendFile(folder)" enctype="multipart/form-data">
         <div class="field">
             <label for="file" class="label">Додати файл</label>
             <input 
@@ -23,7 +23,8 @@ export default {
   data() {
       return {
           file: '',
-          message: ''
+          message: '',
+          folder: 'sadasd'
       }
   },
   methods: {
@@ -31,11 +32,12 @@ export default {
           this.file = this.$refs.file.files[0];
           this.message = ''
     },
-    async sendFile(){
+    async sendFile(folder){
+        console.log(folder)
         const formData = new FormData();
         formData.append('file', this.file);
         try{
-            await axios.post('http://localhost:5000/upload', formData);
+            await axios.post('http://localhost:5000/upload?folder=asasdasd', formData);
             this.message = "Файл було завантажено!";
             this.file = ''
         } catch(err){

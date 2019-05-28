@@ -1,7 +1,8 @@
 var express = require("express");
 var bodyPaprses = require("body-parser");
 var cors = require("cors");
-const multer = require('multer')
+const multer = require('multer');
+let fs = require('fs-extra');
 
 const app = express();
 
@@ -36,7 +37,13 @@ app.use(marks);
 // });
 var storage = multer.diskStorage(
     {
-        destination: './uploads/',
+        destination: (req, file, callback) => {
+            console.log(req.query.folder)
+            let type = req.query.folder;
+            let path = `./uploads/${type}`;
+            fs.mkdirsSync(path);
+            callback(null, path);
+          },
         filename: function ( req, file, cb ) {
             //req.body is empty...
             //How could I get the new_file_name property sent from client here?
@@ -49,6 +56,7 @@ var upload = multer( { storage: storage } );
 
 app.post('/upload', upload.single('file'), (req, res) => {
     res.json({file: req.file})
+    console.log(req.query.folder)
 }) ;
 
 const port = process.env.PORT || 5000;
