@@ -29,7 +29,6 @@ export default {
       this.message = "";
     },
     async sendFile(folder) {
-      console.log(folder);
       const formData = new FormData();
       formData.append("file", this.file);
       try {

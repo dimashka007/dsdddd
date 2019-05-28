@@ -31,7 +31,6 @@ router.post('/api/marks/date', async (req, res) => {
 });
 router.put('/api/marks', async (req, res) => {
     const edu = await loadMarksCollection(req.body.name + req.body.way);
-    console.log(req.body.id, req.body.marks);
     await edu.updateOne(
         { _id: new mongodb.ObjectID(req.body.id)}, // Filter
         {$set: {"marks": req.body.marks}}, // Update
