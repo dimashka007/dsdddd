@@ -30,12 +30,25 @@ app.use(teachload);
 app.use(eduprocess);
 app.use(marks);
 
-const upload = multer({
-    dest: './uploads'
-});
+
+// const upload = multer({
+//     dest: './uploads/'
+// });
+var storage = multer.diskStorage(
+    {
+        destination: './uploads/',
+        filename: function ( req, file, cb ) {
+            //req.body is empty...
+            //How could I get the new_file_name property sent from client here?
+            cb( null, file.originalname );
+        }
+    }
+);
+
+var upload = multer( { storage: storage } );
 
 app.post('/upload', upload.single('file'), (req, res) => {
-    res.json({ file: req.file})
+    res.json({file: req.file})
 }) ;
 
 const port = process.env.PORT || 5000;
