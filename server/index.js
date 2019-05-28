@@ -3,6 +3,7 @@ var bodyPaprses = require("body-parser");
 var cors = require("cors");
 const multer = require('multer');
 let fs = require('fs-extra');
+const path = require('path')
 
 const app = express();
 
@@ -38,9 +39,8 @@ app.use(marks);
 var storage = multer.diskStorage(
     {
         destination: (req, file, callback) => {
-            console.log(req.query.folder)
             let type = req.query.folder;
-            let path = `./uploads/${type}`;
+            let path = `${type}`;
             fs.mkdirsSync(path);
             callback(null, path);
           },
@@ -56,7 +56,6 @@ var upload = multer( { storage: storage } );
 
 app.post('/upload', upload.single('file'), (req, res) => {
     res.json({file: req.file})
-    console.log(req.query.folder)
 }) ;
 
 const port = process.env.PORT || 5000;

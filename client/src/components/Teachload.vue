@@ -1,6 +1,6 @@
 <template>
   <div>
-    <file-upload/>
+    <file-upload :folder="$root.user.split('.').join('')"/>
     <div v-html="table.data"></div>
   </div>
 </template>

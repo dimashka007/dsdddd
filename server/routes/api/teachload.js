@@ -13,7 +13,6 @@ router.post('/api/teachload/', async (req, res) => {
     // await fs.unlink(expath + req.body.name, (err) => {
     // });
     //   res.send(fs.readdirSync(path.join(expath)));
-    console.log(list)
     let workbook = await xlsx.readFile(expath + req.body.folder.split('.').join('') +'/' + list[0]);
     let worksheet = await workbook.Sheets['Лист1'];
     let page = await xlsx.utils.sheet_to_html(worksheet, {
