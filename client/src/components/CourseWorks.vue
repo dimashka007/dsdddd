@@ -1,9 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-4">Методичні вказівки з виконання бакалаврської роботи</div>
-      <div class="col-4">Методичні вказівки з виконання курсової роботи</div>
-      <div class="col-4">Методичні вказівки з виконання магістрської роботи</div>
+      <div class="col-4">Методичні вказівки з виконання бакалаврської роботи
+        <file-upload :folder="'/courseworks/bak/'"/>
+      </div>
+      <div class="col-4">Методичні вказівки з виконання курсової роботи
+        <file-upload :folder="'/courseworks/course/'"/>
+      </div>
+      <div class="col-4">Методичні вказівки з виконання магістрської роботи
+        <file-upload :folder="'/courseworks/mag/'"/>
+      </div>
     </div>
     <div class="row">
       <ul class="col-4 list-group">
@@ -48,8 +54,12 @@
 
 <script>
 import courseworks from "../courseworksService";
+import FileUpload from './upload.vue'
 export default {
   name: "courseworks",
+  components: {
+    FileUpload
+  },
   data() {
     return {
       bak: [],

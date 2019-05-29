@@ -8,22 +8,22 @@ var mammoth = require("mammoth");
 
 // Get exams
 
-router.get('/api/graphics/1', async (req, res) => {
+router.get('/api/graphics/open', async (req, res) => {
     cont = [];
 
-    let task = await Promise.all([getAllShedules('1/')]).then(() => {
+    let task = await Promise.all([getAllShedules('open/')]).then(() => {
         res.send(cont);
     })
 });
-router.get('/api/graphics/2', async (req, res) => {
+router.get('/api/graphics/consults', async (req, res) => {
     cont = [];
-    let task = await Promise.all([getAllShedules('2/')]).then(() => {
+    let task = await Promise.all([getAllShedules('consults/')]).then(() => {
         res.send(cont);
     })
 });
-router.get('/api/graphics/3', async (req, res) => {
+router.get('/api/graphics/visits', async (req, res) => {
     cont = [];
-    let task = await Promise.all([getAllShedules('3/')]).then(() => {
+    let task = await Promise.all([getAllShedules('visits/')]).then(() => {
         res.send(cont);
     })
 });
@@ -37,14 +37,13 @@ const getAllShedules = async (value) => {
         ]
     };
     let list = await fs.readdirSync(path.join(expath + value));
-    for (i = 1; i < list.length; i++) {
+    for (i = 0; i < list.length; i++) {
         if (i === '.DS_Store') {
             continue
         } else {
             const text = (await mammoth.convertToHtml({
                 path: expath + value + list[i]
             })).value;
-
             cont.push(text);
         }
     }

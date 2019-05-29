@@ -1,5 +1,6 @@
-v<template>
+<template>
 <div>
+  <file-upload :folder="'/protocols'"/>
   <div >
     <div class="ml-5 row">
       <div class="col-4">Протоколи засiдань кафедри</div>
@@ -17,9 +18,13 @@ v<template>
 </template>
 
 <script>
+import FileUpload from './upload.vue';
 import protocols from "../protocolsService";
 export default {
   name: "protocols",
+  components: {
+    FileUpload
+  },
   data() {
     return {
       protocols: [],

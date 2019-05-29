@@ -1,9 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-4">Білети на бакалаврський іспит</div>
-      <div class="col-4">Білети на магістрський іспит</div>
-      <div class="col-4">Білети на державний іспит</div>
+      <div class="col-4">Білети на бакалаврський іспит
+        <file-upload :folder="'/exams/ms/'"/>
+      </div>
+      <div class="col-4">Білети на магістрський іспит
+        <file-upload :folder="'/exams/mag/'"/>
+      </div>
+      <div class="col-4">Білети на державний іспит
+        <file-upload :folder="'/exams/dac/'"/>
+      </div>
     </div>
     <div class="row">
       <ul class="col-4 list-group">
@@ -37,9 +43,13 @@
 </template>
 
 <script>
+import FileUpload from './upload.vue';
 import exams from "../examService";
 export default {
   name: "exams",
+  components: {
+    FileUpload
+  },
   data() {
     return {
       ms: [],

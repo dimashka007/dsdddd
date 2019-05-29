@@ -1,26 +1,35 @@
 <template>
   <div>
     <h4>
-      <button v-if="this.$root.user=='admin'" @click="deleteGraphic('1/', 1)" class="btn btn-primary">Видалити файл</button>
+      графiк вiдвiдувань
+      <button v-if="this.$root.user=='admin'" @click="deleteGraphic('visits/', '/visits')" class="btn btn-primary">Видалити графiк вiдвiдувань</button>
+      <file-upload :folder="'/graphics/visits'"/>
     </h4>
     <div id="1" v-html="visits.data[0]"></div>
     <h4>
-      <button v-if="this.$root.user=='admin'" @click="deleteGraphic('2/', 2)" class="btn btn-primary">Видалити файл</button>
+      графiк вiдкритих занять
+      <button v-if="this.$root.user=='admin'" @click="deleteGraphic('open/', 'open')" class="btn btn-primary">Видалити графiк вiдкритих занять</button>
+      <file-upload :folder="'/graphics/open'"/>
     </h4>
     <div id="2" v-html="open.data[0]"></div>
     <h4>
-
-      <button v-if="this.$root.user=='admin'" @click="deleteGraphic('3/', 3)" class="btn btn-primary">Видалити файл</button>
+      графiк консультацiй
+      <button v-if="this.$root.user=='admin'" @click="deleteGraphic('consults/', 'consults')" class="btn btn-primary">Видалити графiк консультацiй</button>
+      <file-upload :folder="'/graphics/consults'"/>
     </h4>
     <div id="3" v-html="consults.data[0]"></div>
   </div>
 </template>
 
 <script>
+import FileUpload from './upload.vue';
 import graphics from "../graphicsService";
 import $ from 'jquery'; // ... jquery
 export default {
   name: "Graphics",
+  components: {
+    FileUpload
+  },
   data() {
     return {
       visits: "",
@@ -29,9 +38,9 @@ export default {
     };
   },
   async created() {
-    this.visits = await graphics.getGraphics("1");
-    this.open = await graphics.getGraphics("2");
-    this.consults = await graphics.getGraphics("3");
+    this.visits = await graphics.getGraphics("visits");
+    this.open = await graphics.getGraphics("open");
+    this.consults = await graphics.getGraphics("consults");
   },
   updated() {
     $('table').addClass('table-bordered table-hover table-condensed table-responsive table-striped');
@@ -43,13 +52,13 @@ export default {
     deleteGraphic: async function(folder, id){
       $('#'+id).hide();
       switch (folder) {
-        case '1/' :
+        case 'visits/' :
           this.visits = await graphics.DeleteGraphics(folder);
           break;
-        case '2/' :
+        case 'open/' :
           this.open = await graphics.DeleteGraphics(folder);
           break;
-        case '3/' :
+        case 'consults/' :
           this.consults = await graphics.DeleteGraphics(folder);
           
           break;
