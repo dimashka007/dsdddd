@@ -68,22 +68,12 @@ export default {
   },
   methods: {
      deleteFile: async function(name, folder){
-      switch (folder) {
-        case 'ms/' :
-          this.ms = (await exams.DeleteFile(name, folder));
-          break;
-        case 'mag/' :
-          this.mag = (await exams.DeleteFile(name, folder));
-          break;
-        case 'dac/' :
-          this.dac = (await exams.DeleteFile(name, folder));
-          break;
-      }
       var splitted = this.splitName(name);
       document.querySelector(`#${splitted}`).style.display="none";
+      return await exams.DeleteFile(name, folder)
     },
     splitName(name) {
-      return (name.split('.')[0]).split('/').join('')
+      return name.split('.').join('').split('/').join('').split(' ').join('').split('—').join('').split('-').join('').split('(').join('').split(')').join('')
     }
   }
 };
