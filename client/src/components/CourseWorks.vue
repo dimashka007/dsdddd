@@ -2,19 +2,18 @@
   <div class="container">
     <div class="row">
       <div class="col-4">Методичні вказівки з виконання бакалаврської роботи
-        <file-upload :folder="'/courseworks/bak/'"/>
+        <file-upload v-if="$root.user == 'admin'" :folder="'/courseworks/bak/'"/>
       </div>
       <div class="col-4">Методичні вказівки з виконання курсової роботи
-        <file-upload :folder="'/courseworks/course/'"/>
+        <file-upload v-if="$root.user == 'admin'" :folder="'/courseworks/course/'"/>
       </div>
       <div class="col-4">Методичні вказівки з виконання магістрської роботи
-        <file-upload :folder="'/courseworks/mag/'"/>
+        <file-upload v-if="$root.user == 'admin'" :folder="'/courseworks/mag/'"/>
       </div>
     </div>
     <div class="row">
       <ul class="col-4 list-group">
-        <div
-          
+        <div          
           class="list-group-item"
           v-for="(coursework, index) in bak.data"
           :item="coursework"

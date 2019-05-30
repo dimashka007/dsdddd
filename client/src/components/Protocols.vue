@@ -7,7 +7,7 @@
     </div>
     <div class="row ml-5">
       <ul class="col-4 list-group">
-        <div :id="splitName('protocols/' + protocol)" class="list-group-item" v-for="(protocol, index) in protocols.data" :item="protocol" :key="index">
+        <div class="list-group-item" v-for="(protocol, index) in protocols.data" :item="protocol" :key="index">
           <a :href="'docs/protocols/'+protocol">{{protocol}}</a> <img v-if="$root.user=='admin'" @click="deleteFile(protocol)" src="img/delete.svg" width="15px"  alt="">
         </div>
       </ul>
@@ -39,14 +39,9 @@ export default {
   },
   methods: {
      deleteFile: async function(name){
-      
+      setTimeout(this.protocols = await protocols.DeleteProtocol(name), 500)
       this.protocols = await protocols.DeleteProtocol(name);
-      var splitted = this.splitName(name);
-      document.querySelector(`#${splitted}`).style.display="none";
     },
-    splitName(name) {
-      return (name.split('.')[0]).split('/').join('')
-    }
   }
 };
 </script>

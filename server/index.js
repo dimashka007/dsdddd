@@ -21,7 +21,6 @@ const teachload = require('./routes/api/teachload');
 const eduprocess = require('./routes/api/eduprocess');
 const marks = require('./routes/api/marks');
 
-
 app.use(exams);
 app.use(protocols);
 app.use(courseworks);
@@ -31,7 +30,6 @@ app.use(teachers);
 app.use(teachload);
 app.use(eduprocess);
 app.use(marks);
-
 
 // const upload = multer({
 //     dest: './uploads/'

@@ -9,13 +9,13 @@
           <router-link to="/exams">Екзаменацiйнi бiлети</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link v-if="$root.user !='' && $root.user != 'admin'" to="/eduprocess">Iндивiдуальний план</router-link>
+          <router-link v-if="$root.user !='' && $root.user != 'admin' && $root.user != undefined" to="/eduprocess">Iндивiдуальний план</router-link>
         </b-nav-item>
         <b-nav-item>
           <router-link to="/graphics">Графiки</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link v-if="$root.user !='' && $root.user != 'admin'" to="/marks">Вiдмiтки</router-link>
+          <router-link v-if="$root.user !='' && $root.user != 'admin' && $root.user != undefined" to="/marks">Вiдмiтки</router-link>
         </b-nav-item>
         <b-nav-item>
           <router-link to="/methodicals">Методична робота</router-link>
@@ -24,10 +24,10 @@
           <router-link to="/protocols">Протоколи</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link v-if="$root.user !='' && $root.user != 'admin'" to="/teachload">Навантаження</router-link>
+          <router-link v-if="$root.user !='' && $root.user != 'admin'&& $root.user != undefined" to="/teachload">Навантаження</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link v-if="$root.user == 'admin'" to="/teachers">Викладачi</router-link>
+          <router-link v-if="$root.user == 'admin'&&$root.user == undefined" to="/teachers">Викладачi</router-link>
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">

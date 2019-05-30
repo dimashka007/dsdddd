@@ -7,7 +7,7 @@
       <label for="termnm">Термін виконання</label>
       <input v-model="termnm" id="termnm" type="text">
       <button @click.prevent="create('nm', amountnm, termnm)">Додати</button>
-      <table class="table">
+      <table class="table table-bordered">
         <tr>
           <th>Назва. Кількісна характеристика</th>
           <th>Термін виконання</th>
@@ -33,7 +33,7 @@
       <label for="termnd">Термін виконання</label>
       <input v-model="termnd" id="termnd" type="text">
       <button @click.prevent="create('nd', amountnd, termnd)">Додати</button>
-      <table class="table">
+      <table class="table table-bordered">
         <tr>
           <th>Назва. Кількісна характеристика</th>
           <th>Термін виконання</th>
@@ -59,7 +59,7 @@
       <label for="termom">Термін виконання</label>
       <input v-model="termom" id="termom" type="text">
       <button @click.prevent="create('om', amountom, termom)">Додати</button>
-      <table class="table">
+      <table class="table table-bordered">
         <tr>
           <th>Назва. Кількісна характеристика</th>
           <th>Термін виконання</th>
@@ -72,6 +72,58 @@
           :key="item._id"
         >
           <template v-if="item.type=='om'">
+            <td>{{item.amount}}</td>
+            <td>{{item.term}}</td>
+          </template>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <h3>Громадська робота та iншi види робiт</h3>
+      <label for="amounthr">Назва. Кількісна характеристика</label>
+      <input v-model="amounthr" id="amounthr" type="text">
+      <label for="termhr">Термін виконання</label>
+      <input v-model="termhr" id="termhr" type="text">
+      <button @click.prevent="create('hr', amounthr, termhr)">Додати</button>
+      <table class="table table-bordered">
+        <tr>
+          <th>Назва. Кількісна характеристика</th>
+          <th>Термін виконання</th>
+        </tr>
+        <tr
+          @dblclick="deletes(item._id)"
+          v-for="(item, index) in list"
+          :item="item"
+          :index="index"
+          :key="item._id"
+        >
+          <template v-if="item.type=='hr'">
+            <td>{{item.amount}}</td>
+            <td>{{item.term}}</td>
+          </template>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <h3>Виховна робота</h3>
+      <label for="amounted">Назва. Кількісна характеристика</label>
+      <input v-model="amounted" id="amounted" type="text">
+      <label for="termed">Термін виконання</label>
+      <input v-model="termed" id="termed" type="text">
+      <button @click.prevent="create('ed', amounted, termed)">Додати</button>
+      <table class="table table-bordered">
+        <tr>
+          <th>Назва. Кількісна характеристика</th>
+          <th>Термін виконання</th>
+        </tr>
+        <tr
+          @dblclick="deletes(item._id)"
+          v-for="(item, index) in list"
+          :item="item"
+          :index="index"
+          :key="item._id"
+        >
+          <template v-if="item.type=='ed'">
             <td>{{item.amount}}</td>
             <td>{{item.term}}</td>
           </template>
@@ -93,6 +145,10 @@ export default {
       termnd: "",
       amountom: "",
       termom: "",
+      amounthr: "",
+      termhr: "",
+      amounted: "",
+      termed: "",
       list: []
     };
   },
