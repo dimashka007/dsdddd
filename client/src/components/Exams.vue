@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col-4">Білети на бакалаврський іспит
-        <file-upload :folder="'/exams/ms/'"/>
+        <file-upload v-if="$root.user == 'admin'" :folder="'/exams/ms/'"/>
       </div>
       <div class="col-4">Білети на магістрський іспит
-        <file-upload :folder="'/exams/mag/'"/>
+        <file-upload v-if="$root.user == 'admin'" :folder="'/exams/mag/'"/>
       </div>
       <div class="col-4">Білети на державний іспит
-        <file-upload :folder="'/exams/dac/'"/>
+        <file-upload v-if="$root.user == 'admin'" :folder="'/exams/dac/'"/>
       </div>
     </div>
     <div class="row">

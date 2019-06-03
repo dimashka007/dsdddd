@@ -53,8 +53,8 @@ const getAllShedules = async (value) => {
 
 // Delete exams
 router.post('/api/graphics/', async (req, res) => {
-    let list = await fs.readdirSync(path.join(expath + req.body.folder));      
-        await fs.unlink(expath + req.body.folder + list[1], (err) => { });
+    let list = await fs.readdirSync(path.join(expath + req.body.folder));     
+        await fs.unlink(expath + req.body.folder + list[0], (err) => { });
     // await fs.unlink(expath + req.body.name, (err) => {
     // });
     //   res.send(fs.readdirSync(path.join(expath)));

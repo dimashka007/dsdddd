@@ -1,6 +1,6 @@
 <template>
 <div>
-  <file-upload :folder="'/protocols'"/>
+  <file-upload v-if="$root.user == 'admin'" :folder="'/protocols'"/>
   <div >
     <div class="ml-5 row">
       <div class="col-4">Протоколи засiдань кафедри</div>

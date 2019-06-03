@@ -27,8 +27,8 @@ class MarksService {
         return axios.post(url+'student', {type, student, marks, name, way})
     }
     //Create Post
-    static insertDisc(collection, name) {
-        return axios.post(url, {collection, name});
+    static insertDisc(collection, name, hours) {
+        return axios.post(url, {collection, name, hours});
     }
     // static deleteTeach(id, dir){
     //     return axios.delete(`${url}${id}`, {data:{dir: dir}});

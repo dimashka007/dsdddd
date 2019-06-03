@@ -1,6 +1,7 @@
 <template>
   <div>
-    <file-upload :folder="'/teachload/'+$root.user.split('.').join('')"/>
+    <button v-if="table" @click="deleteLoad($root.user.split('.').join(''))" class="btn btn-primary">Видалити навантаження</button>
+    <file-upload  v-if="!table" :folder="'/teachload/'+$root.user.split('.').join('')"/>
     <div v-html="table.data"></div>
   </div>
 </template>
@@ -29,6 +30,11 @@ export default {
     $("form").addClass("form-inline");
     $("input").addClass("form-control");
     $("select").addClass("form-control");
+  },
+  methods: {
+    async deleteLoad(folder){
+     this.table =  await teachload.deleteTable(folder)
+    }
   }
 };
 </script>

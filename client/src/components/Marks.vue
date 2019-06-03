@@ -14,8 +14,8 @@
       :close-on-select="true"
     ></multiselect>
     <button @click.prevent="showCurrent()">Відобразити</button>
-
-    <table class="table table-bordered">
+<div class="table-responsive">
+    <table v-if="currentList" class="table table-bordered">
       <tr>
         <th></th>
         <th
@@ -40,11 +40,14 @@
         </template>
       </tr>
     </table>
+    </div>
+    <div v-if="currentList">
     <label for="student">ПІБ студента</label>
     <input v-model="student" id="student" type="text">
     <button @click.prevent="createStudent()">Додати студента</button>
-    <div>
-      <h4 class="mt-5">теми занять</h4>
+    </div>
+    <div v-if="currentList">
+      <h4 class="mt-5">Теми занять</h4>
       <label for="date">Дата</label>
       <input v-model="date" id="date" type="text">
       <label for="theme">Тема заняття</label>
@@ -75,7 +78,7 @@
     </div>
   </div>
 </template>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
 import marks from "../marksService";
 import Multiselect from "vue-multiselect";

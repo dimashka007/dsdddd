@@ -9,6 +9,11 @@ class GraphicsService {
             return(response);
           });
     }
+    static deleteTable(folder) {
+        return axios.post(url+'delete', {folder}).then(function (response) {
+            return(response);
+          });
+    }
 }
 
 export default GraphicsService;

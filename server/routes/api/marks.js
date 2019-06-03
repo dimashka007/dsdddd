@@ -14,7 +14,8 @@ router.get('/api/marks/', async (req, res) => {
 router.post('/api/marks', async (req, res) => {
     const edu = await loadMarksCollection(req.body.collection);
     await edu.insertOne({
-        name: req.body.name
+        name: req.body.name,
+        hours: req.body.hours
     });
     res.status(201).send();
 });
