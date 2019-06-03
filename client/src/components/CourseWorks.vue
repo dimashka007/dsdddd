@@ -13,7 +13,8 @@
     </div>
     <div class="row">
       <ul class="col-4 list-group">
-        <div          
+        <div   
+        :id="'bak' + splitName(coursework)"       
           class="list-group-item"
           v-for="(coursework, index) in bak.data"
           :item="coursework"
@@ -25,7 +26,7 @@
       </ul>
       <ul class="col-4 list-group">
         <div
-          
+        :id="'course' + splitName(coursework)"   
           class="list-group-item"
           v-for="(coursework, index) in course.data"
           :item="coursework"
@@ -37,7 +38,7 @@
       </ul>
       <ul class="col-4 list-group">
         <div
-          
+        :id="'mag' + splitName(coursework)"   
           class="list-group-item"
           v-for="(coursework, index) in mag.data"
           :item="coursework"
@@ -77,26 +78,13 @@ export default {
   },
   methods: {
     deleteCourseworks: async function(name, folder) {
-      switch (folder) {
-        case "bak/":
-          this.ms = await courseworks.DeleteCourseworks(name, folder);
-          break;
-        case "mag/":
-          this.mag = await courseworks.DeleteCourseworks(name, folder);
-          break;
-        case "course/":
-          this.dac = await courseworks.DeleteCourseworks(name, folder);
-          break;
-      }
       var splitted = this.splitName(name);
       document.querySelector(`#${splitted}`).style.display = "none";
+      return await courseworks.DeleteCourseworks(name, folder);
     },
-    // splitName(name) {
-    //   return name
-    //     .split(".")[0]
-    //     .split("/")
-    //     .join("");
-    // }
+    splitName(name) {
+      return name.split('.').join('').split('/').join('').split(' ').join('').split('—').join('').split('-').join('').split('(').join('').split(')').join('')
+    }
   }
 };
 </script>
