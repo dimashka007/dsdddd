@@ -9,7 +9,9 @@ const router = express.Router();
 
 router.get('/api/teachers', async (req, res) => {
     const teach = await loadTeachersCollection();
-    res.send(await teach.find({}).toArray());
+    const current = teach.db('department').collection('teachers')
+    res.send(await current.find({}).toArray());
+    teach.close();
 });
 
 
@@ -18,13 +20,15 @@ router.post('/api/teachers', async (req, res) => {
         if (err) console.log(err);
       });
     const teach = await loadTeachersCollection();
-    await teach.insertOne({
+    const current = teach.db('department').collection('teachers')
+    await current.insertOne({
         name: req.body.name,
         login: req.body.login,
         password: req.body.password,
     });
 
     res.status(201).send();
+    teach.close();
 });
 
 
@@ -32,8 +36,10 @@ router.delete('/api/teachers/:id', async (req, res) => {
     await fs.remove(expath+req.body.dir.split('.').join(''), err => {
       })
     const teach = await loadTeachersCollection();
-    await teach.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
+    const current = teach.db('department').collection('teachers')
+    await current.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
     res.status(200).send();
+    teach.close();
 });
 
 
@@ -42,7 +48,7 @@ async function loadTeachersCollection(){
         useNewUrlParser: true,
     });
 
-    return client.db('department').collection('teachers');
+    return client;
 }
  
 module.exports = router;

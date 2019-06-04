@@ -63,7 +63,6 @@
     methods: {
       deleteGraphic: async function (folder, id) {
         if (confirm('Ви впевненi?')) {
-          console.log(id)
           switch (id) {
             case 'visits':
 

@@ -6,37 +6,42 @@ const router = express.Router();
 // Get 
 
 router.get('/api/eduprocess', async (req, res) => {
-    const edu = await loadEduprocessCollection(req.query.user);
-    res.send(await edu.find({}).toArray());
+    const edu = await loadEduprocessCollection();
+    const current = edu.db('department').collection(req.query.user.split('.').join('').split(' ').join(''));
+    res.send(await current.find({}).toArray());
+    edu.close();
 });
 
 
 router.post('/api/eduprocess', async (req, res) => {
-    const edu = await loadEduprocessCollection(req.body.params.user);
-    await edu.insertOne({
+    const edu = await loadEduprocessCollection();
+    const current = edu.db('department').collection(req.body.params.user.split('.').join('').split(' ').join(''));
+    await current.insertOne({
         type: req.body.type,
         amount: req.body.amount,
         term: req.body.term,
 
     });
     res.status(201).send();
+    edu.close();
 });
 
 
 router.delete('/api/eduprocess/:id', async (req, res) => {
-    const meth = await loadEduprocessCollection(req.body.user);
-    await meth.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
+    const edu = await loadEduprocessCollection();
+    const current = edu.db('department').collection(req.body.user.split('.').join('').split(' ').join(''));
+    await current.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
     res.status(200).send();
+    edu.close();
 });
 
 
-async function loadEduprocessCollection(coll){
-    let user = coll.split('.').join('').split(' ').join('')
+async function loadEduprocessCollection(){
     const client = await mongodb.MongoClient.connect("mongodb+srv://asus48hdc:master1997@masterdegree-7nlxw.mongodb.net/test?retryWrites=true", {
         useNewUrlParser: true
     });
 
-    return client.db('department').collection(user);
+    return client;
 }
  
 module.exports = router;

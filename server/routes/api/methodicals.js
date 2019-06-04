@@ -7,13 +7,16 @@ const router = express.Router();
 
 router.get('/api/methodicals', async (req, res) => {
     const meth = await loadMethodicalsCollection();
-    res.send(await meth.find({}).toArray());
+    const current = meth.db('department').collection('methodicals');
+    res.send(await current.find({}).toArray());
+    meth.close();
 });
 
 
 router.post('/api/methodicals', async (req, res) => {
     const meth = await loadMethodicalsCollection();
-    await meth.insertOne({
+    const current = meth.db('department').collection('methodicals');
+    await current.insertOne({
         name: req.body.name,
         course: req.body.course,
         semester: req.body.semester,
@@ -21,13 +24,16 @@ router.post('/api/methodicals', async (req, res) => {
         
     });
     res.status(201).send();
+    meth.close();
 });
 
 
 router.delete('/api/methodicals/:id', async (req, res) => {
     const meth = await loadMethodicalsCollection();
-    await meth.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
+    const current = meth.db('department').collection('methodicals');
+    await current.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
     res.status(200).send();
+    meth.close();
 });
 
 
@@ -36,7 +42,7 @@ async function loadMethodicalsCollection(){
         useNewUrlParser: true
     });
 
-    return client.db('department').collection('methodicals');
+    return client;
 }
  
 module.exports = router;
