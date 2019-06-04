@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://pulpitpis.herokuapp.com/api/exams/';
+const url = 'http://pulpit.herokuapp.com/api/exams/';
 
 class ExamsService {
     // Get Posts

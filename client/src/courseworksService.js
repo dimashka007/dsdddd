@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://pulpitpis.herokuapp.com/api/courseworks/';
+const url = 'http://pulpit.herokuapp.com/api/courseworks/';
 
 class CourseworksService {
     // Get Posts
