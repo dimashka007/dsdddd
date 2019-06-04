@@ -1,11 +1,9 @@
 <template>
-<div>
+<div style="max-width: 90%" class="container">
+  <h3 class="col-4 px-0 mb-3">Протоколи засiдань кафедри</h3>
   <file-upload v-if="$root.user == 'admin'" :folder="'/protocols'"/>
   <div >
-    <div class="ml-5 row">
-      <div class="col-4">Протоколи засiдань кафедри</div>
-    </div>
-    <div class="row ml-5">
+    <div class="row ml-0">
       <ul class="col-4 list-group">
         <div class="list-group-item" v-for="(protocol, index) in protocols.data" :item="protocol" :key="index">
           <a :href="'docs/protocols/'+protocol">{{protocol}}</a> <img v-if="$root.user=='admin'" @click="deleteFile(protocol)" src="img/delete.svg" width="15px"  alt="">
@@ -13,7 +11,7 @@
       </ul>
     </div>
   </div>
-  <iframe style="position: absolute; right: 0; width: 60%; height: 87%; top:13%; margin-right: 20px; border: 1px solid black" id="frm" src="https://docs.google.com/document/d/15G16T5QGEXwr2cpMQ6Mv8nfIK0HoCwdRkRZLmRgZBxk/edit?usp=sharing"></iframe>
+  <iframe style="position: absolute; right: 0; width: 60%; height: 87%; top:9%; margin-right: 20px; border: 1px solid black" id="frm" src="https://docs.google.com/document/d/15G16T5QGEXwr2cpMQ6Mv8nfIK0HoCwdRkRZLmRgZBxk/edit?usp=sharing"></iframe>
   </div>
 </template>
 
@@ -39,9 +37,18 @@ export default {
   },
   methods: {
      deleteFile: async function(name){
-      setTimeout(this.protocols = await protocols.DeleteProtocol(name), 500)
-      this.protocols = await protocols.DeleteProtocol(name);
+      if(confirm('Ви впевненнi?')){
+        setTimeout(this.protocols = await protocols.DeleteProtocol(name), 500)
+        this.protocols = await protocols.DeleteProtocol(name);
+      }
     },
   }
 };
 </script>
+<style scoped>
+  .list-group-item{
+    max-height: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

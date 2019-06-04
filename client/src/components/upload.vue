@@ -1,13 +1,10 @@
 <template>
   <div class="file">
-    <form @submit.prevent="sendFile(folder)" enctype="multipart/form-data">
-      <div class="field">
-        <label for="file" class="label">Додати файл</label>
-        <input type="file" ref="file" @change="selectFile">
+    <form class="upload-form" @submit.prevent="sendFile(folder)" enctype="multipart/form-data">
+      <div class="form-group mb-3">
+        <input class="btn btn-primary py-auto form-control-input" type="file" ref="file" @change="selectFile">
       </div>
-      <div class="field">
-        <button>Завантажити</button>
-      </div>
+        <button class="btn btn-primary">Завантажити</button>
       <p>{{message}}</p>
     </form>
   </div>
@@ -42,6 +39,7 @@ export default {
       } catch (err) {
         this.message = "Помилка запису, повторiть спробу";
       }
+      this.$router.go()
     }
   }
 };

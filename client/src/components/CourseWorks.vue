@@ -1,18 +1,18 @@
 <template>
-  <div class="container">
+  <div style="max-width: 80%" class="container">
     <div class="row">
-      <div class="col-4">Методичні вказівки з виконання бакалаврської роботи
+      <div class="col-4"><h3>Методичні вказівки з виконання бакалаврської роботи</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/courseworks/bak/'"/>
       </div>
-      <div class="col-4">Методичні вказівки з виконання курсової роботи
+      <div class="col-4"><h3>Методичні вказівки з виконання курсової роботи</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/courseworks/course/'"/>
       </div>
-      <div class="col-4">Методичні вказівки з виконання магістрської роботи
+      <div class="col-4"><h3>Методичні вказівки з виконання магістрської роботи</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/courseworks/mag/'"/>
       </div>
     </div>
     <div class="row">
-      <ul class="col-4 list-group">
+      <ul class="col-4 px-3 list-group">
         <div   
         :id="'bak' + splitName(coursework)"       
           class="list-group-item"
@@ -24,7 +24,7 @@
           <img v-if="$root.user=='admin'" @click="deleteCourseworks('bak/' + coursework, 'bak/')" src="img/delete.svg" width="15px" alt>
         </div>
       </ul>
-      <ul class="col-4 list-group">
+      <ul class="col-4 px-3 list-group">
         <div
         :id="'course' + splitName(coursework)"   
           class="list-group-item"
@@ -36,7 +36,7 @@
           <img v-if="$root.user=='admin'" @click="deleteCourseworks('course/' + coursework, 'course/')" src="img/delete.svg" width="15px" alt>
         </div>
       </ul>
-      <ul class="col-4 list-group">
+      <ul class="col-4 px-3 list-group">
         <div
         :id="'mag' + splitName(coursework)"   
           class="list-group-item"
@@ -78,9 +78,11 @@ export default {
   },
   methods: {
     deleteCourseworks: async function(name, folder) {
+      if(confirm('Ви Впевненнi?')){
       var splitted = this.splitName(name);
       document.querySelector(`#${splitted}`).style.display = "none";
       return await courseworks.DeleteCourseworks(name, folder);
+      }
     },
     splitName(name) {
       return name.split('.').join('').split('/').join('').split(' ').join('').split('—').join('').split('-').join('').split('(').join('').split(')').join('')
@@ -88,3 +90,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+  .list-group-item{
+    max-height: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

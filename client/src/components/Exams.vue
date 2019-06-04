@@ -1,23 +1,23 @@
 <template>
-  <div class="container">
+  <div style="max-width: 80%" class="container">
     <div class="row">
-      <div class="col-4">Білети на бакалаврський іспит
+      <div class="col-4"><h3>Білети на бакалаврський іспит</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/exams/ms/'"/>
       </div>
-      <div class="col-4">Білети на магістрський іспит
+      <div class="col-4"><h3>Білети на магістрський іспит</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/exams/mag/'"/>
       </div>
-      <div class="col-4">Білети на державний іспит
+      <div class="col-4"><h3>Білети на державний іспит</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/exams/dac/'"/>
       </div>
     </div>
     <div class="row">
-      <ul class="col-4 list-group">
+      <ul class="col-4 px-3 list-group">
         <div :id="splitName('ms/' + ticket)" class="list-group-item" v-for="(ticket, index) in ms.data" :item="ticket" :key="index">
           <a :href="'docs/exams/ms/'+ticket">{{ticket}}</a> <img v-if="$root.user=='admin'" @click="deleteFile('ms/' + ticket, 'ms/')" src="img/delete.svg" width="15px"  alt="">
         </div>
       </ul>
-      <ul class="col-4 list-group">
+      <ul class="col-4 px-3 list-group">
         <div :id="splitName('mag/' + ticket)"
           class="list-group-item"
           v-for="(ticket, index) in mag.data"
@@ -27,7 +27,7 @@
           <a :href="'docs/exams/mag/'+ticket">{{ticket}}</a><img v-if="$root.user=='admin'" @click="deleteFile('mag/' + ticket, 'mag/')" src="img/delete.svg" width="15px"  alt="">
         </div>
       </ul>
-      <ul class="col-4 list-group">
+      <ul class="col-4 px-3 list-group">
         <div
           :id="splitName('dac/' + ticket)"
           class="list-group-item"
@@ -68,9 +68,12 @@ export default {
   },
   methods: {
      deleteFile: async function(name, folder){
-      var splitted = this.splitName(name);
-      document.querySelector(`#${splitted}`).style.display="none";
-      return await exams.DeleteFile(name, folder)
+      if(confirm('Ви впевненнi?')){
+        var splitted = this.splitName(name);
+        document.querySelector(`#${splitted}`).style.display="none";
+        return await exams.DeleteFile(name, folder)
+      }
+      
     },
     splitName(name) {
       return name.split('.').join('').split('/').join('').split(' ').join('').split('—').join('').split('-').join('').split('(').join('').split(')').join('')
@@ -78,3 +81,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+  .list-group-item{
+    max-height: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
