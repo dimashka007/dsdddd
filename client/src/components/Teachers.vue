@@ -51,7 +51,7 @@ export default {
       this.$root.users = await teachers.getTeach();
     },
     async deleteTeach(id, dir) {
-      if(confirm('Ви впевненнi?')){
+      if(confirm('Ви впевненi?')){
         await teachers.deleteTeach(id, dir);
         this.$root.users = await teachers.getTeach();
       }

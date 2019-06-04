@@ -58,7 +58,7 @@ export default {
       this.list = await methodicals.getMeth();
     },
     async deleteMeth(id) {
-      if(confirm('Ви впевненнi?')){
+      if(confirm('Ви впевненi?')){
         await methodicals.deleteMeth(id);
         this.list = await methodicals.getMeth();
       }

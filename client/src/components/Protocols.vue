@@ -37,7 +37,7 @@ export default {
   },
   methods: {
      deleteFile: async function(name){
-      if(confirm('Ви впевненнi?')){
+      if(confirm('Ви впевненi?')){
         setTimeout(this.protocols = await protocols.DeleteProtocol(name), 500)
         this.protocols = await protocols.DeleteProtocol(name);
       }

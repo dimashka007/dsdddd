@@ -176,7 +176,7 @@ export default {
       this.list = await eduprocess.getProcess(this.$root.user);
     },
     async deletes(id) {
-      if(confirm('Ви впевненнi?')){
+      if(confirm('Ви впевненi?')){
         await eduprocess.deleteProcess(id, this.$root.user);
         this.list = await eduprocess.getProcess(this.$root.user);
       }

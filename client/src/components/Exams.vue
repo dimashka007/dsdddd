@@ -68,7 +68,7 @@ export default {
   },
   methods: {
      deleteFile: async function(name, folder){
-      if(confirm('Ви впевненнi?')){
+      if(confirm('Ви впевненi?')){
         var splitted = this.splitName(name);
         document.querySelector(`#${splitted}`).style.display="none";
         return await exams.DeleteFile(name, folder)

@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     deleteCourseworks: async function(name, folder) {
-      if(confirm('Ви Впевненнi?')){
+      if(confirm('Ви впевненi?')){
       var splitted = this.splitName(name);
       document.querySelector(`#${splitted}`).style.display = "none";
       return await courseworks.DeleteCourseworks(name, folder);
