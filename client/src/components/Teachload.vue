@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <button v-if="table" @click="deleteLoad($root.user.split('.').join(''))" class="btn btn-primary">Видалити навантаження</button>
+  <div style="max-width: 80%" class="container">
+    <button v-if="table" @click="deleteLoad($root.user.split('.').join(''))" class="btn btn-primary mb-4">Видалити навантаження</button>
     <file-upload  v-if="!table" :folder="'/teachload/'+$root.user.split('.').join('')"/>
-    <div v-html="table.data"></div>
+    <div class="mb-5" v-html="table.data"></div>
   </div>
 </template>
 
@@ -33,7 +33,8 @@ export default {
   },
   methods: {
     async deleteLoad(folder){
-     this.table =  await teachload.deleteTable(folder)
+     this.table =  await teachload.deleteTable(folder);
+     this.$router.go()
     }
   }
 };

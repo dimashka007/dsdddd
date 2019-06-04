@@ -1,61 +1,68 @@
 <template>
-  <div>
-    <label for="nameDisc">Назва дiсциплiни та курс:</label>
-    <input v-model="nameDisc" id="nameDisc" type="text">
-    <button @click.prevent="createDisc()">Додати</button>
-    <multiselect
-      class="col-6"
-      v-model="currentDisc"
-      :options="listDisc"
-      track-by="name"
-      label="name"
-      placeholder="Виберіть групу/дісципліну"
-      :searchable="false"
-      :close-on-select="true"
-    ></multiselect>
-    <button @click.prevent="showCurrent()">Відобразити</button>
-<div class="table-responsive">
-    <table v-if="currentList" class="table table-bordered">
-      <tr>
-        <th></th>
-        <th
-          v-for="(item, index) in CurrentListDate"
-          :item="item"
-          :index="index"
-          :key="item._id"
-        >{{item.date}}</th>
-      </tr>
-      <tr v-for="(item, index) in currentList" :item="item" :index="index" :key="item._id">
-        <template v-if="item.type=='Student'">
-          <td>{{item.student}}</td>
-          <td v-for="(items, index) in item.marks" :index="index" :key="items">
-            <input type="text" v-model="item.marks[index]">
-          </td>
-          <td>
-            <input type="text" v-model="item.marks[item.marks.length]">
-          </td>
-          <td>
-            <button @click.prevent="updateMarks(item._id, item.marks)">Оновити</button>
-          </td>
-        </template>
-      </tr>
-    </table>
+  <div class="container" style="max-width: 80%">
+    <div class="mb-5 col-7 form-group d-flex justify-content-between align-items-center">
+      <label class="my-auto" for="nameDisc">Назва дiсциплiни та курс:</label>
+      <input class="form-control col-6" v-model="nameDisc" id="nameDisc" type="text">
+      <button class="btn btn-primary ml-3" @click.prevent="createDisc()">Додати</button>
     </div>
-    <div v-if="currentList">
-    <label for="student">ПІБ студента</label>
-    <input v-model="student" id="student" type="text">
-    <button @click.prevent="createStudent()">Додати студента</button>
+    <div class="mb-5 col-6 form-group d-flex justify-content-between align-items-center">
+      <multiselect
+      
+        v-model="currentDisc"
+        :options="listDisc"
+        track-by="name"
+        label="name"
+        placeholder="Виберіть групу/дісципліну"
+        :searchable="false"
+        :close-on-select="true"
+      ></multiselect>
+      <button class="btn btn-primary ml-4" @click.prevent="showCurrent()">Відобразити</button>
+    </div>
+    
+    <div class="table-responsive">
+      <table v-if="currentList" class="table table-bordered">
+        <tr>
+          <th></th>
+          <th
+            v-for="(item, index) in CurrentListDate"
+            :item="item"
+            :index="index"
+            :key="item._id"
+          >{{item.date}}</th>
+        </tr>
+        <tr v-for="(item, index) in currentList" :item="item" :index="index" :key="item._id">
+          <template v-if="item.type=='Student'">
+            <td class="py-auto">{{item.student}}</td>
+            <td class="marksinput" v-for="(items, index) in item.marks" :index="index" :key="items">
+              <input type="text" v-model="item.marks[index]">
+            </td>
+            <td class="marksinput">
+              <input type="text" v-model="item.marks[item.marks.length]">
+            </td>
+            <td class="marksinput">
+              <button class="btn btn-block btn-primary" @click.prevent="updateMarks(item._id, item.marks)">Оновити</button>
+            </td>
+          </template>
+        </tr>
+      </table>
+    </div>
+    <div class="mb-5 mt-3 px-0 col-6 form-group d-flex justify-content-between align-items-center" v-if="currentList">
+      <label class="my-auto" for="student">ПІБ студента</label>
+      <input class="form-control col-6" v-model="student" id="student" type="text">
+      <button class="btn btn-primary" @click.prevent="createStudent()">Додати студента</button>
     </div>
     <div v-if="currentList">
       <h4 class="mt-5">Теми занять</h4>
-      <label for="date">Дата</label>
-      <input v-model="date" id="date" type="text">
-      <label for="theme">Тема заняття</label>
-      <input v-model="theme" id="theme" type="text">
-      <label for="task">Завдання</label>
-      <input v-model="task" id="task" type="text">
-      <button @click.prevent="createTask()">Додати</button>
-      <table class="table table-bordered">
+      <div class="my-3 px-0 col form-group d-flex justify-content-between align-items-center">
+        <label class="my-auto" for="date">Дата</label>
+        <input class="form-control col-1" v-model="date" id="date" type="text">
+        <label class="my-auto" for="theme">Тема заняття</label>
+        <input class="form-control col-3"  v-model="theme" id="theme" type="text">
+        <label class="my-auto" for="task">Завдання</label>
+        <input class="form-control col-3"  v-model="task" id="task" type="text">
+        <button class="btn btn-primary" @click.prevent="createTask()">Додати заняття</button>
+      </div>
+      <table class="table table-bordered mb-5">
         <tr>
           <th>Дата</th>
           <th>Тема заняття</th>
@@ -107,7 +114,7 @@ export default {
   watch: {
     currentList: function(val) {
       this.CurrentListDate = val.filter(item => {
-        return item.type=='date'
+        return item.type == "date";
       });
     }
   },
@@ -154,3 +161,19 @@ export default {
   }
 };
 </script>
+<style scoped>
+  th{
+    vertical-align: middle;
+    max-width: 50px;
+  }
+  td{
+    vertical-align: middle
+  }
+  .marksinput{
+    max-width: 50px;
+    text-align: center
+  }
+  td input{
+    width: 100%
+  }
+</style>
