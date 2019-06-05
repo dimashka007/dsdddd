@@ -30,7 +30,7 @@ export default {
       formData.append("file", this.file);
       try {
         await axios.post(
-          "http://localhost:5000/upload?folder=client/public/docs" +
+          "api/upload?folder=client/public/docs" +
             folder,
           formData
         );
@@ -39,7 +39,7 @@ export default {
       } catch (err) {
         this.message = "Помилка запису, повторiть спробу";
       }
-      this.$router.go()
+      // this.$router.go()
     }
   }
 };

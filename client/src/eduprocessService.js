@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/api/eduprocess/';
+const url = '/api/eduprocess/';
 
 class EduprocessService {
     static getProcess(user){

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/api/marks/';
+const url = '/api/marks/';
 
 class MarksService {
     static getDisc(name){
