@@ -39,7 +39,7 @@ export default {
       } catch (err) {
         this.message = "Помилка запису, повторiть спробу";
       }
-      // this.$router.go()
+      this.$router.go()
     }
   }
 };
