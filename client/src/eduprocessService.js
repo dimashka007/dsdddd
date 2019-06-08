@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://pulpit.herokuapp.com/api/eduprocess/';
+const url = '/api/eduprocess/';
 
 class EduprocessService {
     static getProcess(user){

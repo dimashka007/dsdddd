@@ -52,12 +52,17 @@ var storage = multer.diskStorage(
 
 var upload = multer( { storage: storage } );
 
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', upload.single('file'), (req, res) => {
     res.json({file: req.file})
 }) ;
 
 if(process.env.NODE_ENV === 'production'){
     // stativ folder
+    app.use(express.static(path.join(__dirname, '../client/dist/')))
+
+    app.get(/.*/, (req,res) => res.sendFile(path.join(__dirname, '../client/dist/index.html')));
+}
+else{
     app.use(express.static(path.join(__dirname, '../client/dist/')))
 
     app.get(/.*/, (req,res) => res.sendFile(path.join(__dirname, '../client/dist/index.html')));

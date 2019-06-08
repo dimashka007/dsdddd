@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://pulpit.herokuapp.com/api/graphics/';
+const url = '/api/graphics/';
 
 class GraphicsService {
     // Get Posts

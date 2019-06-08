@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://pulpit.herokuapp.com/api/marks/';
+const url = '/api/marks/';
 
 class MarksService {
     static getDisc(name){

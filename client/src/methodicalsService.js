@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://pulpit.herokuapp.com/api/methodicals/';
+const url = '/api/methodicals/';
 
 class MethodicalsService {
     static getMeth(){
