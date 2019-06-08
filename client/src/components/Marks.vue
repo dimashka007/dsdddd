@@ -151,7 +151,7 @@ export default {
       this.currentList = await marks.getDisc(this.currentDisc.name);
     },
     async updateMarks(id, marks) {
-      await axios.put("http://localhost:5000/api/marks/", {
+      await axios.put("/api/marks/", {
         id: id,
         marks: marks,
         name: this.currentDisc.name,
