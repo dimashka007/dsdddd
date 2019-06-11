@@ -18,10 +18,10 @@
           <router-link to="/marks">Оцiнки</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link to="/methodicals">Методична робота</router-link>
+          <router-link to="/methodicals">Штати</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link to="/protocols">Штати</router-link>
+          <router-link to="/protocols">Плани роботи кафедри</router-link>
         </b-nav-item>
         <b-nav-item v-if="$root.user !='' && $root.user != 'admin'&& $root.user != undefined" >
           <router-link to="/teachload">Навантаження</router-link>

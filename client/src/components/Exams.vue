@@ -4,7 +4,7 @@
       <div class="col-4"><h3>Лекцiї</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/exams/ms/'"/>
       </div>
-      <div class="col-4"><h3>практичнi/лабораторнi/семинари</h3>
+      <div class="col-4"><h3>практичнi/лабораторнi/семiнари</h3>
         <file-upload v-if="$root.user == 'admin'" :folder="'/exams/mag/'"/>
       </div>
       <div class="col-4"><h3>Білети</h3>
