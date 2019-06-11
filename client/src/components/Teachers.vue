@@ -2,14 +2,14 @@
   <div class="container" style="max-width: 80%">
     <h1>Список викладачiв</h1>
       <div class="mb-5 form-group d-flex justify-content-between align-items-center">
-      <label class="my-auto" for="name">Ф.І.О. викладача:</label><input class="form-control" v-model="name" id="name" type="text">
+      <label class="my-auto" for="name">П.I.Б. викладача:</label><input class="form-control" v-model="name" id="name" type="text">
       <label class="my-auto" for="login">Логiн:</label><input class="form-control" v-model="login" id="login" type="text">
       <label class="my-auto" for="password">Пароль:</label><input class="form-control" v-model="password" id="password" type="text">
       <button class="btn btn-primary" @click.prevent="createTeach">Додати</button>
     </div>
     <table class="table table-bordered">
       <tr>
-        <th>Ф.І.О. викладача</th>
+        <th>П.I.Б. викладача</th>
         <th>Логiн</th>
         <th>Пароль</th>
       </tr>

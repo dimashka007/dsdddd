@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 80%" class="container w-100">
     <div v-if="$root.user=='admin'" class="mb-5 form-group d-flex justify-content-between align-items-center">
-      <label class="my-auto" for="name">Ф.І.О. викладача:</label><input class="form-control" v-model="name" id="name" type="text">
+      <label class="my-auto" for="name">П.I.Б. викладача:</label><input class="form-control" v-model="name" id="name" type="text">
       <label class="my-auto" for="course">Курс:</label><input class="form-control" v-model="course" id="course" type="number">
       <label class="my-auto" for="semester">Семестр:</label><input class="form-control" v-model="semester" id="semester" type="number">
       <label class="my-auto" for="discipline">Назва дисципліни:</label><input class="form-control" v-model="discipline" id="discipline" type="text">
@@ -9,7 +9,7 @@
     </div>
     <table class="table table-bordered">
       <tr>
-        <th>Ф.І.О. викладача</th>
+        <th>П.I.Б. викладача</th>
         <th>Курс</th>
         <th>Семестр</th>
         <th>Назва дисципліни</th>

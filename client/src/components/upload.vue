@@ -36,10 +36,10 @@ export default {
         );
         this.message = "Файл було завантажено!";
         this.file = "";
+        this.$router.go()
       } catch (err) {
         this.message = "Помилка запису, повторiть спробу";
       }
-      this.$router.go()
     }
   }
 };

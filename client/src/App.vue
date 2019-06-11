@@ -3,10 +3,10 @@
     <b-navbar variant="primary">
       <b-navbar-nav>
         <b-nav-item>
-          <router-link to="/courseworks">Методичнi вказiвки</router-link>
+          <router-link to="/courseworks">Методичне забеспечення квалiфiкацiйних робiт</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link to="/exams">Екзаменацiйнi бiлети</router-link>
+          <router-link to="/exams">Методичне забеспечення з навчальних дисциплiн</router-link>
         </b-nav-item>
         <b-nav-item v-if="$root.user !='' && $root.user != 'admin' && $root.user != undefined">
           <router-link  to="/eduprocess">Iндивiдуальний план</router-link>
@@ -15,13 +15,13 @@
           <router-link to="/graphics">Графiки</router-link>
         </b-nav-item>
         <b-nav-item  v-if="$root.user !='' && $root.user != 'admin' && $root.user != undefined">
-          <router-link to="/marks">Вiдмiтки</router-link>
+          <router-link to="/marks">Оцiнки</router-link>
         </b-nav-item>
         <b-nav-item>
           <router-link to="/methodicals">Методична робота</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link to="/protocols">Протоколи</router-link>
+          <router-link to="/protocols">Штати</router-link>
         </b-nav-item>
         <b-nav-item v-if="$root.user !='' && $root.user != 'admin'&& $root.user != undefined" >
           <router-link to="/teachload">Навантаження</router-link>
