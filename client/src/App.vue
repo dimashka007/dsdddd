@@ -21,7 +21,7 @@
           <router-link to="/methodicals">Штати</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link to="/protocols">Плани дiльностi кафедри</router-link>
+          <router-link to="/protocols">Плани дiяльностi кафедри</router-link>
         </b-nav-item>
         <b-nav-item v-if="$root.user !='' && $root.user != 'admin'&& $root.user != undefined" >
           <router-link to="/teachload">Навантаження</router-link>
