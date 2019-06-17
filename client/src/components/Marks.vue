@@ -1,8 +1,10 @@
 <template>
   <div class="container" style="max-width: 80%">
-    <div class="mb-5 col-7 form-group d-flex justify-content-between align-items-center">
+    <div class="mb-5 col-10 form-group d-flex justify-content-between align-items-center">
       <label class="my-auto" for="nameDisc">Назва дiсциплiни та курс:</label>
-      <input class="form-control col-6" v-model="nameDisc" id="nameDisc" type="text">
+      <input class="form-control col-4" v-model="nameDisc" id="nameDisc" type="text">
+      <label class="my-auto" for="hoursDisc">Кiлькiсть годин:</label>
+      <input class="form-control col-4" v-model="hoursDisc" id="hoursDisc" type="text">
       <button class="btn btn-primary ml-3" @click.prevent="createDisc()">Додати</button>
     </div>
     <div class="mb-5 col-6 form-group d-flex justify-content-between align-items-center">
@@ -34,12 +36,14 @@
           <template v-if="item.type=='Student'">
             <td class="py-auto">{{item.student}}</td>
             <td class="marksinput" v-for="(items, index) in item.marks" :index="index" :key="items">
-              <input type="text" v-model="item.marks[index]">
+              <input type="tel" v-model="item.marks[index]">
             </td>
-            <td class="marksinput">
-              <input type="text" v-model="item.marks[item.marks.length]">
+            <td>
+              {{item.marks.reduce((sum, current)=>{
+                return sum + Number(current);
+              }, 0)}}
             </td>
-            <td class="marksinput">
+            <td style="max-width: 130px" class="marksinput">
               <button class="btn btn-block btn-primary" @click.prevent="updateMarks(item._id, item.marks)">Оновити</button>
             </td>
           </template>
@@ -47,7 +51,7 @@
       </table>
     </div>
     <div class="mb-5 mt-3 px-0 col-6 form-group d-flex justify-content-between align-items-center" v-if="currentList">
-      <label class="my-auto" for="student">ПІБ студента</label>
+      <label class="my-auto" for="student">П.І.Б. студента</label>
       <input class="form-control col-6" v-model="student" id="student" type="text">
       <button class="btn btn-primary" @click.prevent="createStudent()">Додати студента</button>
     </div>
@@ -97,6 +101,7 @@ export default {
   data() {
     return {
       nameDisc: "",
+      hoursDisc: "",
       listDisc: "",
 
       currentDisc: "",
@@ -123,7 +128,7 @@ export default {
   },
   methods: {
     async createDisc() {
-      await marks.insertDisc(this.$root.user + "Disc", this.nameDisc);
+      await marks.insertDisc(this.$root.user + "Disc", this.nameDisc, this.hoursDisc);
       this.listDisc = await marks.getDisc(this.$root.user);
     },
     async showCurrent() {
@@ -144,7 +149,7 @@ export default {
       await marks.insertStudent(
         "Student",
         this.student,
-        [],
+        this.currentDisc.hours,
         this.currentDisc.name,
         "Disc"
       );

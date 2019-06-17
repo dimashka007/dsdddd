@@ -4,8 +4,8 @@ const url = '/api/protocols/';
 
 class ProtocolsService {
     // Get Posts
-    static getProtocols(){
-        return axios.get(url)
+    static getProtocols(folder){
+        return axios.get(url+folder)
     }
 
     //Create Post

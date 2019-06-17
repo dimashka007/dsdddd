@@ -60,7 +60,7 @@ router.post('/api/marks/student', async (req, res) => {
     await current.insertOne({
         type: req.body.type,
         student: req.body.student,
-        marks: req.body.marks
+        marks: new Array(Number(req.body.marks))
     });
     res.status(201).send();
     edu.close();
