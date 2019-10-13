@@ -21,6 +21,7 @@ import Protocols from './components/Protocols.vue'
 import Teachload from './components/Teachload.vue'
 import Teachers from './components/Teachers.vue'
 import Eduprocess from './components/Eduprocess.vue'
+import Groups from './components/Groups.vue'
 
 const routes = [
   { path: '/courseworks', component: CourseWorks },
@@ -32,6 +33,7 @@ const routes = [
   { path: '/teachload', component: Teachload },
   { path: '/teachers', component: Teachers },
   { path: '/eduprocess', component: Eduprocess },
+  { path: '/groups', component: Groups },
 ]
 
 const router = new VueRouter({

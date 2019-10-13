@@ -29,6 +29,9 @@
         <b-nav-item v-if="$root.user == 'admin' && $root.user != undefined">
           <router-link to="/teachers">Викладачi</router-link>
         </b-nav-item>
+        <b-nav-item v-if="$root.user == 'admin' && $root.user != undefined">
+          <router-link to="/groups">Навачальнi групи</router-link>
+        </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
