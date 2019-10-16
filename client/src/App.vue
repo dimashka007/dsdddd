@@ -53,6 +53,7 @@
 
 <script>
 import teachers from "./TeachersService";
+import groups from "./groupsService";
 export default {
   name: "app",
   data() {
@@ -64,9 +65,9 @@ export default {
     };
   },
   async created() {
-    
     try {
       this.$root.users = await teachers.getTeach();
+      this.$root.groups = await groups.getGroups();
     } catch (err) {
       console.log(err);
     }

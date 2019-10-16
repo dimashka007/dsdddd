@@ -46,7 +46,8 @@ new Vue({
   data: {
     user: '',
     users: [
-    ]
+    ],
+    groups: []
   },
   created(){
     this.$root.user = document.cookie.split('=')[1]

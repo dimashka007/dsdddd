@@ -16,6 +16,9 @@ class groupsService {
             }
         });
     }
+    static insertGroup(name){
+        return axios.post(url, {name})
+    }
 }
 
 export default groupsService;

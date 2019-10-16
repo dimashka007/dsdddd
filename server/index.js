@@ -20,6 +20,7 @@ const teachers = require('./routes/api/teachers');
 const teachload = require('./routes/api/teachload');
 const eduprocess = require('./routes/api/eduprocess');
 const marks = require('./routes/api/marks');
+const groups = require('./routes/api/groups');
 
 app.use(exams);
 app.use(protocols);
@@ -30,6 +31,7 @@ app.use(teachers);
 app.use(teachload);
 app.use(eduprocess);
 app.use(marks);
+app.use(groups);
 
 // const upload = multer({
 //     dest: './uploads/'
