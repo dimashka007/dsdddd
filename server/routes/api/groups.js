@@ -13,17 +13,17 @@ router.get('/api/groups/', async (req, res) => {
 });
 
 
-router.put('/api/marks', async (req, res) => {
-    const edu = await loadGroupsCollection();
-    const current = edu.db('department').collection((req.body.name + req.body.way).split('.').join('').split(' ').join(''));
+router.put('/api/groups', async (req, res) => {
+    const groups = await loadGroupsCollection();
+    const current = groups.db('department').collection('groups');
     await current.updateOne(
         { _id: new mongodb.ObjectID(req.body.id)}, // Filter
-        {$set: {"marks": req.body.marks}}, // Update
+        {$set: {"students": req.body.students}}, // Update
         {upsert: false} // add document with req.body._id if not exists 
 
    );
     res.status(201).send();
-    edu.close();
+    groups.close();
 
 });
 

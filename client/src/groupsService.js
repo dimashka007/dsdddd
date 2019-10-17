@@ -19,6 +19,9 @@ class groupsService {
     static insertGroup(name){
         return axios.post(url, {name})
     }
+    static insertStudents(students, id){
+        return axios.put(url, {id, students})
+    }
 }
 
 export default groupsService;

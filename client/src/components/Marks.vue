@@ -1,10 +1,19 @@
 <template>
   <div class="container" style="max-width: 80%">
-    <div class="mb-5 col-10 form-group d-flex justify-content-between align-items-center">
+    <div class="mb-5 col-11 form-group d-flex justify-content-between align-items-center">
       <label class="my-auto" for="nameDisc">Назва дiсциплiни та курс:</label>
-      <input class="form-control col-4" v-model="nameDisc" id="nameDisc" type="text">
+      <input class="form-control col-3" v-model="nameDisc" id="nameDisc" type="text">
       <label class="my-auto" for="hoursDisc">Кiлькiсть годин:</label>
-      <input class="form-control col-4" v-model="hoursDisc" id="hoursDisc" type="text">
+      <input class="form-control col-3" v-model="hoursDisc" id="hoursDisc" type="text">
+      <multiselect
+        v-model="currentGroup"
+        :options="$root.groups"
+        track-by="groupName"
+        label="groupName"
+        placeholder="Виберіть групу"
+        :searchable="true"
+        :close-on-select="true"
+      ></multiselect>
       <button class="btn btn-primary ml-3" @click.prevent="createDisc()">Додати</button>
     </div>
     <div class="mb-5 col-6 form-group d-flex justify-content-between align-items-center">
@@ -105,7 +114,7 @@ export default {
       listDisc: "",
 
       currentDisc: "",
-
+      currentGroup: "",
       currentList: "",
       CurrentListDate: "",
 
