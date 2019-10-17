@@ -1,6 +1,9 @@
 <template>
   <div class="container" style="max-width: 80%">
-      <div class="row"></div>
+      <div class="row mb-5">
+        <div :key="item" v-for="item in $root.groups" class="col-3 pl-0 pr-4">
+        <button @click="currentGroupSelected = item" class="btn btn-block btn-primary">{{item.groupName}}</button></div>
+      </div>
       <div class="row">
         <label class="my-auto" for="groupName">Назва групи:</label>
         <input class="form-control col-4" v-model="groupName" id="groupName" type="text">
@@ -16,6 +19,7 @@ export default {
   data() {
     return {
       groupName: '',
+      currentGroupSelected: {}
     }
   },
   async created() {
