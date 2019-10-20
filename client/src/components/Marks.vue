@@ -44,16 +44,13 @@
         <tr v-for="(item, index) in currentList" :item="item" :index="index" :key="item._id">
           <template v-if="item.type=='Student'">
             <td class="py-auto">{{item.student}}</td>
-            <td class="marksinput" v-for="(items, index) in item.marks" :index="index" :key="items">
-              <input type="tel" v-model="item.marks[index]">
+            <td @focusout="updateMarks(item._id, item.marks)" class="marksinput" v-for="(items, index) in item.marks" :index="index" :key="items">
+              <input  type="tel" v-model="item.marks[index].mark">
             </td>
             <td>
               {{item.marks.reduce((sum, current)=>{
                 return sum + Number(current);
               }, 0)}}
-            </td>
-            <td style="max-width: 130px" class="marksinput">
-              <button class="btn btn-block btn-primary" @click.prevent="updateMarks(item._id, item.marks)">Оновити</button>
             </td>
           </template>
         </tr>
@@ -138,6 +135,7 @@ export default {
   methods: {
     async createDisc() {
       await marks.insertDisc(this.$root.user + "Disc", this.nameDisc, this.hoursDisc);
+      this.createStudent();
       this.listDisc = await marks.getDisc(this.$root.user);
     },
     async showCurrent() {
@@ -157,12 +155,11 @@ export default {
     async createStudent() {
       await marks.insertStudent(
         "Student",
-        this.student,
-        this.currentDisc.hours,
-        this.currentDisc.name,
+        this.currentGroup.students,
+        this.hoursDisc,
+        this.nameDisc,
         "Disc"
       );
-      this.currentList = await marks.getDisc(this.currentDisc.name);
     },
     async updateMarks(id, marks) {
       await axios.put("/api/marks/", {

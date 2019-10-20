@@ -57,11 +57,31 @@ router.put('/api/marks', async (req, res) => {
 router.post('/api/marks/student', async (req, res) => {
     const edu = await loadMarksCollection();
     const current = edu.db('department').collection((req.body.name + req.body.way).split('.').join('').split(' ').join(''));
-    await current.insertOne({
-        type: req.body.type,
-        student: req.body.student,
-        marks: new Array(Number(req.body.marks))
-    });
+    let studentsGroup = [];
+    for(var i = 0; i<req.body.students.length; i++){
+        studentsGroup.push({
+            type: req.body.type,
+            student: req.body.students[i],
+            marks: (function(){
+                let arr= [];
+                for(var i = 0; i<req.body.marks; i++){
+                    arr.push({
+                        mark: '',
+                        attendance: ''
+                    })
+                }
+                return arr
+            })()
+        })
+
+    };
+    await current.insertMany(studentsGroup, function(err, res) {
+        if (err) throw err;})
+    // await current.insertOne({
+    //     type: req.body.type,
+    //     student: req.body.student,
+    //     marks: new Array(Number(req.body.marks))
+    // });
     res.status(201).send();
     edu.close();
 

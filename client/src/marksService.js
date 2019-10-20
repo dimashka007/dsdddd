@@ -23,8 +23,8 @@ class MarksService {
     static insertTask(type, date, theme, task, name, way){
         return axios.post(url+'date', {type, date, theme, task, name, way})
     }
-    static insertStudent(type, student, marks, name, way){
-        return axios.post(url+'student', {type, student, marks, name, way})
+    static insertStudent(type, students, marks, name, way){
+        return axios.post(url+'student', {type, students, marks, name, way})
     }
     //Create Post
     static insertDisc(collection, name, hours) {
