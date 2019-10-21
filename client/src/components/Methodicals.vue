@@ -56,6 +56,10 @@ export default {
     async createMeth() {
       await methodicals.insertMeth(this.name, this.course, this.semester, this.discipline);
       this.list = await methodicals.getMeth();
+      this.name =''
+      this.course=''
+      this.semester=''
+      this.discipline=''
     },
     async deleteMeth(id) {
       if(confirm('Ви впевненi?')){

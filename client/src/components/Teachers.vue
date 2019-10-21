@@ -49,6 +49,9 @@ export default {
     async createTeach() {
       await teachers.insertTeach(this.name, this.login, this.password);
       this.$root.users = await teachers.getTeach();
+      this.name='';
+      this.login= '';
+      this.password= ''
     },
     async deleteTeach(id, dir) {
       if(confirm('Ви впевненi?')){

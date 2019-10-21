@@ -37,7 +37,7 @@
         <b-nav-form>
           <template v-if="$root.user == ''||$root.user == undefined">
             <b-form-input size="sm" class="mr-sm-2" v-model="login" placeholder="Логiн"></b-form-input>
-            <b-form-input size="sm" class="mr-sm-2" v-model="password" placeholder="Пароль"></b-form-input>
+            <b-form-input size="sm" class="mr-sm-2" type="password" v-model="password" placeholder="Пароль"></b-form-input>
             <button class="my-2 btn bg-dark text-white my-sm-0" @click.prevent="auth">Увiйти</button>
           </template>
           <template v-else>
@@ -82,6 +82,8 @@ export default {
           this.$root.user = this.$root.users[i].name;
           var v = encodeURIComponent(document.lastModified);
           document.cookie = "user=" + this.$root.user;
+          this.login = ''
+          this.password= ''
           break;
         } else {
           this.error = true;
@@ -90,6 +92,7 @@ export default {
       if (this.$root.user == "" && this.error == true) {
         alert("направильний логiн або пароль");
       } else return true;
+
     },
     logOut() {
       this.$root.user = "";

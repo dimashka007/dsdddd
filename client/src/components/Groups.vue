@@ -1,7 +1,7 @@
 <template>
   <div class="container" style="max-width: 80%">
       <div class="row mb-5">
-        <div :key='id' v-for="(item, id) in $root.groups" class="col-3 pl-0 pr-4">
+        <div :key='id' v-for="(item, id) in $root.groups" class="col-3 pl-0 pr-4 mb-3">
         <button @click.prevent="select(item)" class="btn btn-block btn-primary">{{item.groupName}}</button></div>
       </div>
       <div class="row mb-5">
@@ -56,11 +56,13 @@ export default {
     async createGroup(){
       await groups.insertGroup(this.groupName);
       this.$root.groups = await groups.getGroups();
+      this.groupName=''
     },
     async addStudent(){
       this.currentGroupSelected.students.push(this.studentName)
       await groups.insertStudents(this.currentGroupSelected.students, this.currentGroupSelected._id);
       this.$root.groups = await groups.getGroups();
+      this.studentName=''
     }
   }
 }

@@ -3,7 +3,7 @@
     <div class="mb-5 col-11 form-group d-flex justify-content-between align-items-center">
       <label class="my-auto" for="nameDisc">Назва дiсциплiни та курс:</label>
       <input class="form-control col-3" v-model="nameDisc" id="nameDisc" type="text">
-      <label class="my-auto" for="hoursDisc">Кiлькiсть годин:</label>
+      <label class="my-auto" for="hoursDisc">Кiлькiсть занять:</label>
       <input class="form-control col-3" v-model="hoursDisc" id="hoursDisc" type="text">
       <multiselect
         v-model="currentGroup"
@@ -44,23 +44,32 @@
         <tr v-for="(item, index) in currentList" :item="item" :index="index" :key="item._id">
           <template v-if="item.type=='Student'">
             <td class="py-auto">{{item.student}}</td>
-            <td @focusout="updateMarks(item._id, item.marks)" class="marksinput" v-for="(items, index) in item.marks" :index="index" :key="items">
-              <input  type="tel" v-model="item.marks[index].mark">
+            <td :class="item.marks[index].attendance=='visited'? 'visited': item.marks[index].attendance=='unvisited'? 'unvisited': ''" @focusout="updateMarks(item._id, item.marks)" class="marksinput" v-for="(items, index) in item.marks" :index="index" :key="items">
+              <input  type="number" v-model="item.marks[index].mark">
+              <img @click='item.marks[index].attendance = "unvisited"; updateMarks(item._id, item.marks)' v-if="item.marks[index].attendance == ''" src="img/error.png" alt="">
+              <img @click='item.marks[index].attendance = "visited"; updateMarks(item._id, item.marks)' v-if="item.marks[index].attendance == ''" src="img/success.png" alt="">
             </td>
             <td>
               {{item.marks.reduce((sum, current)=>{
-                return sum + Number(current);
+                
+                if(Number(current.mark) != 'NaN'){
+                  return sum + Number(current.mark);
+                }
+                else{
+                  return sum
+                }
+                
               }, 0)}}
             </td>
           </template>
         </tr>
       </table>
     </div>
-    <div class="mb-5 mt-3 px-0 col-6 form-group d-flex justify-content-between align-items-center" v-if="currentList">
+    <!-- <div class="mb-5 mt-3 px-0 col-6 form-group d-flex justify-content-between align-items-center" v-if="currentList">
       <label class="my-auto" for="student">П.І.Б. студента</label>
       <input class="form-control col-6" v-model="student" id="student" type="text">
       <button class="btn btn-primary" @click.prevent="createStudent()">Додати студента</button>
-    </div>
+    </div> -->
     <div v-if="currentList">
       <h4 class="mt-5">Теми занять</h4>
       <div class="my-3 px-0 col form-group d-flex justify-content-between align-items-center">
@@ -119,7 +128,7 @@ export default {
       theme: "",
       task: "",
 
-      student: ""
+      // student: ""
     };
   },
   watch: {
@@ -137,9 +146,12 @@ export default {
       await marks.insertDisc(this.$root.user + "Disc", this.nameDisc, this.hoursDisc);
       this.createStudent();
       this.listDisc = await marks.getDisc(this.$root.user);
+      this.nameDisc=''
+      this.hoursDisc=''
     },
     async showCurrent() {
       this.currentList = await marks.getDisc(this.currentDisc.name);
+
     },
     async createTask() {
       await marks.insertTask(
@@ -151,6 +163,9 @@ export default {
         "Disc"
       );
       this.currentList = await marks.getDisc(this.currentDisc.name);
+       this.date =''
+        this.theme =''
+        this.task=''
     },
     async createStudent() {
       await marks.insertStudent(
@@ -160,6 +175,7 @@ export default {
         this.nameDisc,
         "Disc"
       );
+      this.currentGroup= ''
     },
     async updateMarks(id, marks) {
       await axios.put("/api/marks/", {
@@ -175,16 +191,21 @@ export default {
 <style scoped>
   th{
     vertical-align: middle;
-    max-width: 50px;
   }
   td{
     vertical-align: middle
   }
   .marksinput{
-    max-width: 50px;
+    min-width: 100px;
     text-align: center
   }
   td input{
     width: 100%
+  }
+  .visited{
+    background-color: green
+  }
+  .unvisited{
+    background-color: red
   }
 </style>
