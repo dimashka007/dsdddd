@@ -1,10 +1,10 @@
 <template>
   <div class="container" style="max-width: 80%">
     <div class="mb-5 col-11 form-group d-flex justify-content-between align-items-center">
-      <label class="my-auto" for="nameDisc">Назва дiсциплiни та курс:</label>
-      <input class="form-control col-3" v-model="nameDisc" id="nameDisc" type="text">
+      <label class="my-auto" for="nameDisc">Назва дiсциплiни:</label>
+      <input class="form-control col-3 mr-3" v-model="nameDisc" id="nameDisc" type="text">
       <label class="my-auto" for="hoursDisc">Кiлькiсть занять:</label>
-      <input class="form-control col-3" v-model="hoursDisc" id="hoursDisc" type="text">
+      <input class="form-control col-1 mr-5" v-model="hoursDisc" id="hoursDisc" type="number">
       <multiselect
         v-model="currentGroup"
         :options="$root.groups"
@@ -30,10 +30,11 @@
       <button class="btn btn-primary ml-4" @click.prevent="showCurrent()">Відобразити</button>
     </div>
     
-    <div class="table-responsive">
-      <table v-if="currentList" class="table table-bordered">
+    <div id="table-scroll" class="table-scroll">
+      <table style="border: none" id="main-table" class="main-table table-bordered" v-if="currentList" >
+        <tbody>
         <tr>
-          <th></th>
+          <th style="border: none"></th>
           <th
             v-for="(item, index) in CurrentListDate"
             :item="item"
@@ -43,7 +44,7 @@
         </tr>
         <tr v-for="(item, index) in currentList" :item="item" :index="index" :key="item._id">
           <template v-if="item.type=='Student'">
-            <td class="py-auto">{{item.student}}</td>
+            <th class="py-auto">{{item.student}}</th>
             <td :class="item.marks[index].attendance=='visited'? 'visited': item.marks[index].attendance=='unvisited'? 'unvisited': ''" @focusout="updateMarks(item._id, item.marks)" class="marksinput" v-for="(items, index) in item.marks" :index="index" :key="items">
               <input  type="number" v-model="item.marks[index].mark">
               <img @click='item.marks[index].attendance = "unvisited"; updateMarks(item._id, item.marks)' v-if="item.marks[index].attendance == ''" src="img/error.png" alt="">
@@ -63,6 +64,7 @@
             </td>
           </template>
         </tr>
+        </tbody>
       </table>
     </div>
     <!-- <div class="mb-5 mt-3 px-0 col-6 form-group d-flex justify-content-between align-items-center" v-if="currentList">
@@ -143,14 +145,14 @@ export default {
   },
   methods: {
     async createDisc() {
-      await marks.insertDisc(this.$root.user + "Disc", this.nameDisc, this.hoursDisc);
+      await marks.insertDisc(this.$root.user + "Disc", `${this.nameDisc} ${this.currentGroup.groupName}`, this.hoursDisc);
       this.createStudent();
       this.listDisc = await marks.getDisc(this.$root.user);
       this.nameDisc=''
       this.hoursDisc=''
     },
     async showCurrent() {
-      this.currentList = await marks.getDisc(this.currentDisc.name);
+      this.currentList = await marks.getDisc(this.currentDisc.name.split(' ').join(''));
 
     },
     async createTask() {
@@ -172,7 +174,7 @@ export default {
         "Student",
         this.currentGroup.students,
         this.hoursDisc,
-        this.nameDisc,
+        `${this.nameDisc} ${this.currentGroup.groupName}`,
         "Disc"
       );
       this.currentGroup= ''
@@ -208,4 +210,59 @@ export default {
   .unvisited{
     background-color: red
   }
+.intro {
+  max-width: 1280px;
+  margin: 1em auto;
+}
+.table-scroll {
+  position: relative;
+  width:100%;
+  z-index: 1;
+  margin: auto;
+  overflow: auto;
+}
+.table-scroll table {
+  width: 100%;
+  min-width: 1280px;
+  margin: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table-wrap {
+  position: relative;
+}
+.table-scroll th,
+.table-scroll td {
+  padding: 5px 10px;
+  vertical-align: top;
+}
+.table-scroll thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+/* safari and ios need the tfoot itself to be position:sticky also */
+.table-scroll tfoot,
+.table-scroll tfoot th,
+.table-scroll tfoot td {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+
+  z-index:4;
+}
+
+
+th:first-child {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  background: white;
+  z-index: 2;
+}
+thead th:first-child,
+tfoot th:first-child {
+  z-index: 5;
+}
+
 </style>
