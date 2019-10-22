@@ -32,7 +32,7 @@
     
     <div id="table-scroll" class="table-scroll">
       <table style="border: none" id="main-table" class="main-table table-bordered" v-if="currentList" >
-        <tbody>
+        <thead>
         <tr>
           <th style="border: none"></th>
           <th
@@ -42,6 +42,8 @@
             :key="item._id"
           >{{item.date}}</th>
         </tr>
+        </thead> 
+        <tbody>
         <tr v-for="(item, index) in currentList" :item="item" :index="index" :key="item._id">
           <template v-if="item.type=='Student'">
             <th class="py-auto">{{item.student}}</th>
@@ -234,9 +236,11 @@ export default {
 .table-scroll th,
 .table-scroll td {
   padding: 5px 10px;
+  background: #fff;
   vertical-align: top;
 }
 .table-scroll thead th {
+  background: #fff;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -248,21 +252,26 @@ export default {
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
-
+  background: #fff;
+  color: #fff;
   z-index:4;
 }
 
+a:focus {
+  background: red;
+} /* testing links*/
 
 th:first-child {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
-  background: white;
   z-index: 2;
+  background: #fff;
 }
 thead th:first-child,
 tfoot th:first-child {
   z-index: 5;
 }
+
 
 </style>
